@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Functions {
 
+    //this option is O(n2) consumes more memory
     public boolean isAnagram(String lhs, String rhs) {
         //both strings in the same way to compare, so same case in this case upper case, no whitespaces
         String[] left = lhs.toUpperCase().replaceAll("\\s", "").split("");
@@ -21,26 +22,30 @@ public class Functions {
         return Arrays.equals(left, right);
     }
 
-    public boolean areAnagrams(String one, String two) {
+    //This option is O(n)
+    public boolean isAnagramBestOption(String lhs, String rhs) {
         Map<String, Integer> map = new HashMap<>();
-        String[] left = one.toUpperCase().replaceAll("\\s", "").split("");
-        String[] right = two.toUpperCase().replaceAll("\\s", "").split("");
+        String[] left = lhs.toUpperCase().replaceAll("\\s", "").split("");
+        String[] right = rhs.toUpperCase().replaceAll("\\s", "").split("");
 
-        for (String c : left)
-            if (map.containsKey(c)) {
-                map.put(c, map.get(c) + 1);
+        //Evaluates left side, so it is incrementing
+        for (String charToEvaluate : left)
+            if (map.containsKey(charToEvaluate)) {
+                map.put(charToEvaluate, map.get(charToEvaluate) + 1);
 
             } else {
-                map.put(c, 1);
+                map.put(charToEvaluate, 1);
             }
-        for (String c : right)
-            if (!map.containsKey(c)) {
+        //Evaluates right side, so it is decrementing
+        for (String charToEvaluate : right)
+            if (!map.containsKey(charToEvaluate)) {
                 return false;
             }else {
-                map.put(c, map.get(c) - 1);
+                map.put(charToEvaluate, map.get(charToEvaluate) - 1);
 
-                if (map.get(c) == 0)
-                    map.remove(c);
+                if (map.get(charToEvaluate) == 0) {
+                    map.remove(charToEvaluate);
+                }
             }
 
         return map.isEmpty();

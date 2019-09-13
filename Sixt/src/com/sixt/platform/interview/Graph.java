@@ -2,14 +2,14 @@ package com.sixt.platform.interview;
 
 import java.util.*;
 
-class Graph2 {
+public class Graph {
 
     private final int V;
     private final List<List<Integer>> adjencyListCyclic;
     private LinkedList<Integer> adjListForTopoSort[]; // Adjacency List
 
 
-    public Graph2(int V) {
+    public Graph(int V) {
         this.V = V;
         adjencyListCyclic = new ArrayList<>(V);
         adjListForTopoSort = new LinkedList[V];
@@ -47,7 +47,9 @@ class Graph2 {
     }
 
     // Function to add an edge into the graph
-    void addEdge(int v,int w) { adjListForTopoSort[v].add(w); }
+    void addEdge(int v,int w) {
+        adjencyListCyclic.get(v).add(w);
+        adjListForTopoSort[v].add(w); }
 
     // Returns true if the graph contains a
     // cycle, else false.
@@ -114,7 +116,7 @@ class Graph2 {
 
     // Driver code
     public static void main(String[] args) {
-        Graph2 graph = new Graph2(7);
+        Graph graph = new Graph(7);
 
         final VulnerabilityScript script1 = new VulnerabilityScript(1, Collections.singletonList(6));
         final VulnerabilityScript script2 = new VulnerabilityScript(2, Collections.singletonList(1));
@@ -137,10 +139,8 @@ class Graph2 {
         }
 
         if (graph.isCyclic()) {
-            System.out.println("Graph2 contains cycle");
+            throw new RuntimeException("Graph is cyclic");
         } else {
-            System.out.println("Graph2 doesn't "
-                    + "contain cycle");
             graph.topologicalSort();
         }
     }
