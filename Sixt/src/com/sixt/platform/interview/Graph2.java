@@ -137,9 +137,9 @@ class Graph2 {
         }
 
         if (graph.isCyclic()) {
-            System.out.println("Graph contains cycle");
+            System.out.println("Graph2 contains cycle");
         } else {
-            System.out.println("Graph doesn't "
+            System.out.println("Graph2 doesn't "
                     + "contain cycle");
             graph.topologicalSort();
         }
